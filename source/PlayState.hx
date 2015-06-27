@@ -18,6 +18,7 @@ class PlayState extends FlxState
 	private var _timeSwitched:Bool;
 	public var _log:FlxText;
 	private var _time:Float;
+        private var _switchTime:Float;
 
 	/**
 	 * Function that is called up when to state is created to set it up. 
@@ -34,6 +35,7 @@ class PlayState extends FlxState
 		this.add(_log);
 		_timeSwitched = true;
 		_time = 0;
+                _switchTime = -2;
 	}
 
 	private function loadStage(number:Int=0){
@@ -59,7 +61,9 @@ class PlayState extends FlxState
 	{
 		_time += FlxG.elapsed;
 		super.update();
-		player.updatePlayer();
+                if(_time > _switchTime){
+                        player.updatePlayer();
+                }
 	}	
 
 	public function checkCollision():Bool{
@@ -82,6 +86,15 @@ class PlayState extends FlxState
 	}
 
 	public function switchTime():Void{
+                _switchTime = _time + 0.5;
 		_timeSwitched = !_timeSwitched;
+                /* TODO: en vez de hacer invisible, cambiar el alpha (ver cómo)
+                for(f in _level.getForeground1()){
+                        f.visible = _timeSwitched;
+                }
+                for(f in _level.getForeground2()){
+                        f.visible = !_timeSwitched;
+                }
+                */
 	}
 }

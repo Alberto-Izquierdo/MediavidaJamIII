@@ -87,7 +87,6 @@ class Player extends FlxSprite{
 		if(FlxG.keys.justPressed.Z){
 			if(_jumpTime > _playState.getTime()){
 				velocity.y = -Constants.jumpSpeed;
-				_dJumpAvailable = true;
 			}
 			else if(_dJumpAvailable){
 				velocity.y = -Constants.jumpSpeed;
@@ -98,6 +97,10 @@ class Player extends FlxSprite{
 		if(FlxG.keys.justPressed.X){
 			_playState.switchTime();
 		}
+                if(FlxG.keys.justPressed.P){
+                        x = 300;
+                        y = 300;
+                }
 	}
 
 	public function collideFloor():Void{
@@ -111,6 +114,7 @@ class Player extends FlxSprite{
 	}
 
 	private function setJumpTime(time:Float):Void{
+                _dJumpAvailable = true;
 		this._jumpTime = time + 0.1;
 	}
 }
